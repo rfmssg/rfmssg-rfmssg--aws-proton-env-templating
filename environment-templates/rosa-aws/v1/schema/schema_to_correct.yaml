@@ -1,0 +1,130 @@
+schema:
+  format:
+    openapi: "3.0.0"
+  environment_input_type: "PublicEnvironmentInput"
+  types:
+    PublicEnvironmentInput:
+      type: object
+      description: "Input properties for my environment"
+      properties:
+        region:
+          type: string
+          description: "The region to provision "
+          default: "eu-west-1"
+        az:
+          type: string
+          enum: [single_zone, multi_zone]
+          description: "Deployment Option : Single or Multiple Zone for the Openshift Cluster Deployment. By default, it is multi-zone"
+          default: "multi_zone"
+        availability_zone1:
+          type: string
+          description: "Zone by default for a single_zone deployment for Openshift Cluster"
+          default: "eu-west-1a"
+        access_key_id:
+          type: string
+          description: "The AccessKey of the serviceaccount that will install the Openshift Cluster on AWS"
+        secret_access_key:
+          type: string
+          description: "The SecretKey of the serviceaccount"
+        base_domain:
+          type: string
+          description: "The base domain for the URL of Openshift Cluster. It could be a public or a private one. It depends of the deployment choice of OpenShift Cluster"
+        cluster_name:
+          type: string
+          description: "The name of the cluster that will be installed"
+        worker_replica_count:
+          type: string
+          description: "Number of replicates of desired worker nodes"
+        openshift_pull_secret_file_path:
+          type: string
+          description: "The Token generated from the RedHat portal: https://cloud.redhat.com/openshift/install/pull-secret. This is to link the RH Account to AWS Account during installation"
+        openshift_token:
+          type: string
+          description: " Token generated from the RedHat portal [here](https://cloud.redhat.com/openshift/token/rosa) to log into OpenShift Cluster"
+        public_ssh_key:
+          type: string 
+          description: "ssh Public key to be included in the bootnode and all the nodes in the cluster. Example: 'grssh-rsa AAAAB3Nza...'"
+        openshift_username:
+          type: string 
+          description: "The name of the user that will access the Openshift Cluster as administrator"
+        openshift_password:
+          type: string
+          description: "The password of the user that will access the Openshift Cluster as administrator"
+        private_cluster:
+          type: bool
+          description: "EndPoints should resolve to Private IPS"
+          default: false
+        vpc_cidr:
+          type: string
+          description: "CIDR IP of the VPC"
+          default: "10.42.0.0/16"
+        master_subnet_cidr1:
+          type: string
+          description: "CIDR IP of the master_subnet from availability zone 1"
+          default: "10.42.0.0/20"  
+        master_subnet_cidr2:
+          type: string
+          description: "CIDR IP of the master_subnet from availability zone 2"
+          default: "10.42.16.0/20"  
+        master_subnet_cidr3:
+          type: string
+          description: "CIDR IP of the master_subnet from availability zone 3"
+          default: "10.42.32.0/20"
+        worker_subnet_cidr1:
+          type: string
+          description: "CIDR IP of the worker_subnet from availability zone 1"
+          default: "10.42.128.0/20"
+        worker_subnet_cidr2:
+          type: string
+          description: "CIDR IP of the worker_subnet from availability zone 2"
+          default: "10.42.144.0/20"
+        worker_subnet_cidr3:
+          type: string
+          description: "CIDR IP of the worker_subnet from availability zone 3"
+          default: "10.42.160.0/20"
+        worker_instance_type:
+          type: string
+          description: "The instance Flavour from AWS EC2. See EC2 flavour list here : https://aws.amazon.com/fr/ec2/instance-types/ for more information" 
+          enum: [m5.xlarge, m5.2xlarge, m5d.xlarge, m5d.2xlarge, m5.4xlarge, m5.8xlarge, m5.12xlarge, m5.24xlarge, m5a.4xlarge, m5a.8xlarge, m5a.12xlarge, m5a.24xlarge, c5.4xlarge, c5.9xlarge, c5.12xlarge, c5.18xlarge, c5.24xlarge, r5.4xlarge, r5.9xlarge, r5.12xlarge, r5.18xlarge, r5.24xlarge, m4.4xlarge, m4.8xlarge, m4.10xlarge, m5.8xlarge, m5.12xlarge, c5.8xlarge, c5.9xlarge, c5.12xlarge, r5.4xlarge, r5.8xlarge, r5.12xlarge, c4.8xlarge]
+          default: "m5.4xlarge"
+        worker_instance_volume_iops:
+          type: number
+          description: "IOPS Number for SSD disks for worker nodes"
+          default: 2000 
+        worker_instance_volume_size:
+          type: number
+          description: "The size of SSD disks for worker nodes"
+          default: 300
+        worker_instance_volume_type:
+          type: string
+          description : "Instance type from AWS offer"
+          default: "io1"
+        master_instance_type:
+          type: string
+          description: "The instance Flavour from AWS EC2. See EC2 flavour list here : https://aws.amazon.com/fr/ec2/instance-types/ for more information"
+          enum: [m5.xlarge, m5.2xlarge, m5d.xlarge, m5d.2xlarge, m5.4xlarge, m5.8xlarge, m5.12xlarge, m5.24xlarge, m5a.4xlarge, m5a.8xlarge, m5a.12xlarge, m5a.24xlarge, c5.4xlarge, c5.9xlarge, c5.12xlarge, c5.18xlarge, c5.24xlarge, r5.4xlarge, r5.9xlarge, r5.12xlarge, r5.18xlarge, r5.24xlarge, m4.4xlarge, m4.8xlarge, m4.10xlarge, m5.8xlarge, m5.12xlarge, c5.8xlarge, c5.9xlarge, c5.12xlarge, r5.4xlarge, r5.8xlarge, r5.12xlarge, c4.8xlarge]
+          default: "m5.4xlarge"
+        master_instance_volume_iops:
+          type: number
+          description: "IOPS Number for SSD disks for master nodes"
+          default: 4000
+        master_instance_volume_size:
+          type: number
+          description: "The size of SSD disks for master nodes"
+          default: 300
+        master_instance_volume_type:
+          type: string
+          description: "Instance type from AWS offer"
+          default: "io1"
+        master_replica_count:
+          type: number
+          description: "Replicates Number for master nodes. By default, 3 will be set."
+          default: 3  
+        cluster_network_cidr:
+          type: string 
+          description: "10.128.0.0/14"
+        service_network_cidr:
+          type: string
+          description : "172.30.0.0/16"     
+
+
