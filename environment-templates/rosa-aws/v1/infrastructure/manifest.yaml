@@ -3,3 +3,16 @@ infrastructure:
     - file: "*"
       rendering_engine: hcl
       template_language: terraform
+    - file: "network/*"
+      rendering_engine: hcl
+      template_language: terraform
+    - file: "scripts/*"
+      rendering_engine: shell
+      template_language: python
+    - file: "ocp/*"
+      rendering_engine: hcl
+      template_language: terraform
+    - file: "efs/*
+      rendering_engine: hcl
+      template_language: terraform
+
